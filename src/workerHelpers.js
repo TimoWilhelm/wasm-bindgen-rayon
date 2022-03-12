@@ -106,3 +106,7 @@ export async function startWorkers(module, memory, builder) {
   );
   builder.build();
 }
+
+export async function clearWorkers() {
+  _workers.forEach(worker => worker.terminate());
+}

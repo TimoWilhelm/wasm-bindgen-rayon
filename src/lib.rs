@@ -56,6 +56,9 @@ pub struct wbg_rayon_PoolBuilder {
 extern "C" {
     #[wasm_bindgen(js_name = startWorkers)]
     fn start_workers(module: JsValue, memory: JsValue, builder: wbg_rayon_PoolBuilder) -> Promise;
+
+    #[wasm_bindgen(js_name = clearWorkers)]
+    fn clear_workers() -> Promise;
 }
 
 #[wasm_bindgen]
@@ -120,6 +123,12 @@ pub fn init_thread_pool(num_threads: usize) -> Promise {
         wasm_bindgen::memory(),
         wbg_rayon_PoolBuilder::new(num_threads),
     )
+}
+
+#[wasm_bindgen(js_name = clearThreadPool)]
+#[doc(hidden)]
+pub fn clear_thread_pool() -> Promise {
+    clear_workers()
 }
 
 #[wasm_bindgen]
